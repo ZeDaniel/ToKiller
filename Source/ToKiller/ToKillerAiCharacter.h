@@ -29,8 +29,10 @@ public:
 	float GetChaseTimer() { return ChaseTimer; }
 	void SetChaseTimer(float NewChaseTimer) { ChaseTimer = NewChaseTimer; }
 
+	class UTP_WeaponComponent* GetWeaponComp() { return WeaponComp; }
+
 protected:
-	UPROPERTY(EditAnywhere, Category="Weapon")
+	UPROPERTY(EditAnywhere, Category="Weapon", BlueprintReadWrite)
 	class UTP_WeaponComponent* WeaponComp;
 
 	/** List of Patrol Locations to move to. 0 should be starting location */

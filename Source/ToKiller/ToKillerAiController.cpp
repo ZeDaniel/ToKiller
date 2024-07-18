@@ -67,31 +67,5 @@ void AToKillerAiController::BeginPlay()
 void AToKillerAiController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	if (PlayerPawn && LineOfSightTo(PlayerPawn))
-	{
-		GetBlackboardComponent()->SetValueAsVector(TEXT("PlayerLocation"), PlayerPawn->GetActorLocation());
-		GetBlackboardComponent()->SetValueAsVector(TEXT("LastKnownPlayerLocation"), PlayerPawn->GetActorLocation());
-		AiPawn->SetChaseTimer(5.f);
-	}
-	else
-	{
-		GetBlackboardComponent()->ClearValue(TEXT("PlayerLocation"));
-
-		//If last known is present, countdown chase timer
-		if (GetBlackboardComponent()->IsVectorValueSet(TEXT("LastKnownPlayerLocation")))
-		{
-			//Clear last known if ai character has chased for 5 seconds
-			if (AiPawn->GetChaseTimer() <= 0)
-			{
-				FString Text = GetPawn()->GetName();
-				UE_LOG(LogTemp, Display, TEXT("Last Know Location for Pawn: %s cleared"), *Text);
-				GetBlackboardComponent()->ClearValue(TEXT("LastKnownPlayerLocation"));
-			}
-			else
-			{
-				AiPawn->SetChaseTimer(AiPawn->GetChaseTimer() - DeltaTime);
-			}
-		}
-	}	
+	
 }

@@ -11,6 +11,8 @@ UUpdatePatrol::UUpdatePatrol()
 
 EBTNodeResult::Type UUpdatePatrol::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
+	Super::ExecuteTask(OwnerComp, NodeMemory);
+
 	AToKillerAiController* AiController = Cast<AToKillerAiController>(OwnerComp.GetAIOwner());
 	
 	if (AiController)
