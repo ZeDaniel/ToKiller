@@ -31,9 +31,18 @@ public:
 
 	class UTP_WeaponComponent* GetWeaponComp() { return WeaponComp; }
 
+	void HandleDestruction();
+
+	/** called when hit by something */
+	UFUNCTION()
+	void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+
 protected:
 	UPROPERTY(EditAnywhere, Category="Weapon", BlueprintReadWrite)
 	class UTP_WeaponComponent* WeaponComp;
+
+	UPROPERTY(EditAnywhere, Category = "Weapon", BlueprintReadWrite)
+	TSubclassOf<AActor> WeaponDropClass;
 
 	/** List of Patrol Locations to move to. 0 should be starting location */
 	UPROPERTY(EditAnywhere, Category="Patrol")

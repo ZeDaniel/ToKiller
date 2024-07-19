@@ -57,9 +57,6 @@ void AToKillerAiController::BeginPlay()
 	{
 		RunBehaviorTree(AiBehavior);
 
-		PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
-		GetBlackboardComponent()->SetValueAsVector(TEXT("PlayerLocation"), PlayerPawn->GetActorLocation());
-
 		UpdatePatrolLocation();
 	}
 }

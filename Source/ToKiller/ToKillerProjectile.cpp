@@ -31,6 +31,11 @@ AToKillerProjectile::AToKillerProjectile()
 	InitialLifeSpan = 3.0f;
 }
 
+void AToKillerProjectile::HandleDestruction()
+{
+	Destroy();
+}
+
 void AToKillerProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
 	// Only add impulse and destroy projectile if we hit a physics
@@ -38,6 +43,6 @@ void AToKillerProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor
 	{
 		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
 
-		Destroy();
+		HandleDestruction();
 	}
 }

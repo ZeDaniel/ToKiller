@@ -3,6 +3,8 @@
 
 #include "ToKillerAiCharacter.h"
 #include "TP_WeaponComponent.h"
+#include "Components/CapsuleComponent.h"
+#include "ToKillerProjectile.h"
 
 // Sets default values
 AToKillerAiCharacter::AToKillerAiCharacter()
@@ -15,11 +17,34 @@ AToKillerAiCharacter::AToKillerAiCharacter()
 
 }
 
+void AToKillerAiCharacter::HandleDestruction()
+{
+	SetActorEnableCollision(false);
+
+	if (WeaponDropClass)
+	{
+		auto WeaponDrop = GetWorld()->SpawnActor<AActor>(WeaponDropClass, GetActorLocation(), GetActorRotation());
+	}
+
+	Destroy();
+}
+
+void AToKillerAiCharacter::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+{
+	//if hit by projectile, initiate body swap
+	if (OtherActor && OtherComp && OtherActor->ActorHasTag(TEXT("PlayerProjectile")))
+	{
+		Cast<AToKillerProjectile>(OtherActor)->HandleDestruction();
+		HandleDestruction();
+	}
+}
+
 // Called when the game starts or when spawned
 void AToKillerAiCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	GetCapsuleComponent()->OnComponentHit.AddDynamic(this, &AToKillerAiCharacter::OnHit);		// set up a notification for when this component hits something blocking
 }
 
 // Called every frame

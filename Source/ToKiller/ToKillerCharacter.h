@@ -40,8 +40,49 @@ class AToKillerCharacter : public ACharacter
 public:
 	AToKillerCharacter();
 
+	UFUNCTION(BlueprintCallable)
+	bool HasRifle() const { return bHasRifle; }
+
+	UFUNCTION(BlueprintCallable)
+	void SetHasRifle(bool NewHasRifle) { bHasRifle = NewHasRifle; }
+
+	/** called when hit by something */
+	UFUNCTION()
+	void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
 protected:
 	virtual void BeginPlay();
+
+	UPROPERTY(EditAnywhere, Category = "BodySwap")
+	float SwapSpeed = 200.f;
+	UPROPERTY(EditAnywhere, Category = "BodySwap")
+	float TargetSwapTranslationRadius = 10.f;
+	UPROPERTY(EditAnywhere, Category = "BodySwap")
+	float TargetSwapRotationLength = 0.01f;
+	/** Adjust how much distance affects swap speed. Higher values mean higher distances speed up the swap more. 0 Will nullify speed*/
+	UPROPERTY(EditAnywhere, Category = "BodySwap")
+	float SwapSpeedDistanceModifier = 1.0f;
+
+private:
+	FTransform OnHitTransform;
+
+	bool bHasRifle = false;
+	int32 SwapPhase = 0;
+	FVector TargetSwapLocation;
+	FRotator TargetSwapRotation;
+	FRotator LookAtRotation;
+	AActor* SwapActor;
+	float SwapSpeedDistanceScalar;
+
+	void SwitchBodies(AActor* ActorToSwitchWith);
+	void EndSwitchBodies(AActor* ActorToSwitchWith);
+
+	void ProgressSwap(float DeltaTime);
+
+	void SetPlayerEnabledState(bool bPlayerEnabled);
 
 public:
 		
