@@ -107,7 +107,10 @@ void UTP_WeaponComponent::FireForPlayer()
 
 			// Spawn the projectile at the muzzle
 			auto NewProjectile = World->SpawnActor<AToKillerProjectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
-			NewProjectile->Tags.Add(TEXT("PlayerProjectile"));
+			if (NewProjectile)
+			{
+				NewProjectile->Tags.Add(TEXT("PlayerProjectile"));
+			}
 		}
 	}
 
@@ -148,10 +151,9 @@ void UTP_WeaponComponent::FireForAi()
 
 			// Spawn the projectile at the muzzle. Set owner to the root actor (A Character, hopefully)
 			auto NewProjectile = World->SpawnActor<AToKillerProjectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
-			AActor* Root = GetAttachmentRootActor();
-			if (Root)
+			if (AiCharacter && NewProjectile)
 			{
-				NewProjectile->SetOwner(Root);
+				NewProjectile->SetOwner(AiCharacter);
 			}
 		}
 	}

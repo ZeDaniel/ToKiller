@@ -5,6 +5,8 @@
 #include "TP_WeaponComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "ToKillerProjectile.h"
+#include "Kismet/GameplayStatics.h"
+#include "ToKillerGameMode.h"
 
 // Sets default values
 AToKillerAiCharacter::AToKillerAiCharacter()
@@ -34,6 +36,7 @@ void AToKillerAiCharacter::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActo
 	//if hit by projectile, initiate body swap
 	if (OtherActor && OtherComp && OtherActor->ActorHasTag(TEXT("PlayerProjectile")))
 	{
+		Cast<AToKillerGameMode>(UGameplayStatics::GetGameMode(GetWorld()))->AddKill();
 		Cast<AToKillerProjectile>(OtherActor)->HandleDestruction();
 		HandleDestruction();
 	}

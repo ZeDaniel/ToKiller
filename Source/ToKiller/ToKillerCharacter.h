@@ -44,7 +44,7 @@ public:
 	bool HasRifle() const { return bHasRifle; }
 
 	UFUNCTION(BlueprintCallable)
-	void SetHasRifle(bool NewHasRifle) { bHasRifle = NewHasRifle; }
+	void SetHasRifle(bool NewHasRifle);
 
 	/** called when hit by something */
 	UFUNCTION()
@@ -52,6 +52,8 @@ public:
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	void SetPlayerEnabledState(bool bPlayerEnabled);
 
 protected:
 	virtual void BeginPlay();
@@ -81,8 +83,6 @@ private:
 	void EndSwitchBodies(AActor* ActorToSwitchWith);
 
 	void ProgressSwap(float DeltaTime);
-
-	void SetPlayerEnabledState(bool bPlayerEnabled);
 
 public:
 		

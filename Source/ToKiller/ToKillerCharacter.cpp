@@ -17,6 +17,7 @@
 #include "BrainComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "ToKillerGameMode.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -43,6 +44,12 @@ AToKillerCharacter::AToKillerCharacter()
 	//Mesh1P->SetRelativeRotation(FRotator(0.9f, -19.19f, 5.2f));
 	Mesh1P->SetRelativeLocation(FVector(-30.f, 0.f, -150.f));
 
+}
+
+void AToKillerCharacter::SetHasRifle(bool NewHasRifle)
+{
+	bHasRifle = NewHasRifle;
+	Cast<AToKillerGameMode>(UGameplayStatics::GetGameMode(GetWorld()))->UpdateGunless();
 }
 
 void AToKillerCharacter::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
@@ -119,7 +126,11 @@ void AToKillerCharacter::EndSwitchBodies(AActor* ActorToSwitchWith)
 	UGameplayStatics::SetGlobalTimeDilation(GetWorld(), 1.f);
 	CustomTimeDilation = 1.f;
 
+	//Update player deaths
+	Cast<AToKillerGameMode>(UGameplayStatics::GetGameMode(GetWorld()))->AddPlayerDeath();
+
 	//Re-enable player
+	GetCharacterMovement()->MaxWalkSpeed += 100;
 	SetPlayerEnabledState(true);
 }
 
