@@ -15,10 +15,10 @@ public:
 
 	/** Pause Input Action */
 	UPROPERTY(EditAnywhere, Category = Input)
-	class UInputAction* PauseAction;
+	class UInputAction* ContinueAction;
 	/** Restart level Input Action */
 	UPROPERTY(EditAnywhere, Category = Input)
-	class UInputAction* RestartLevelAction;
+	class UInputAction* PauseAction;
 
 	AToKillerGameMode();
 
@@ -26,15 +26,32 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION(BlueprintCallable)
-	void ToggleGamePause();
+	void ToggleTempGamePause();
+
+	void Continue();
+
+	UFUNCTION(BlueprintCallable)
+	void PauseGame();
+	UFUNCTION(BlueprintCallable)
+	void UnPauseGame();
 
 	UFUNCTION(BlueprintCallable)
 	void QueueNextLevel(FName LevelName);
 
 	UFUNCTION(BlueprintCallable)
 	bool GamePaused() const { return bGamePaused; }
+
+	UFUNCTION(BlueprintCallable)
+	bool GameHasStarted() const { return bGameHasStarted; }
+
+	UFUNCTION(BlueprintCallable)
+	void SetGamePaused(bool NewGamePaused) { bGamePaused = NewGamePaused; }
+
 	UFUNCTION(BlueprintCallable)
 	float LevelTimer() const { return fLevelTimer; }
+
+	UFUNCTION(BlueprintCallable)
+	void RestartLevel();
 
 	void UpdateGunless();
 
@@ -58,6 +75,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	bool bGamePaused = false;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Pause")
+	TSubclassOf<UUserWidget> PauseWidgetClass;
+
 private:
 
 	class AToKillerCharacter* PlayerCharacter;
@@ -69,7 +89,11 @@ private:
 
 	void LoadNextLevel();
 
-	void RestartLevel();
+	UUserWidget* PauseWidget;
+
+	bool bGameHasStarted = false;
+
+	void PauseForStartGame();
 };
 
 
