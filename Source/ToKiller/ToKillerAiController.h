@@ -20,6 +20,8 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
+	virtual FVector GetFocalPointOnActor(const AActor* Actor) const override;
+
 	UPROPERTY(EditAnywhere)
 	class UBehaviorTree* AiBehavior;
 

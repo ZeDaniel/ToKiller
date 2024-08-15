@@ -7,6 +7,8 @@
 #include "BehaviorTree/BlackboardComponent.h"
 #include "ToKillerAiCharacter.h"
 #include "Tasks\AITask.h"
+#include "ToKillerCharacter.h"
+#include "Camera/CameraComponent.h"
 
 void AToKillerAiController::UpdatePatrolLocation()
 {
@@ -59,6 +61,20 @@ void AToKillerAiController::BeginPlay()
 
 		UpdatePatrolLocation();
 	}
+}
+
+FVector AToKillerAiController::GetFocalPointOnActor(const AActor* Actor) const
+{
+	if (const AToKillerCharacter* Player = Cast<AToKillerCharacter>(Actor))
+	{
+		return Player->GetFirstPersonCameraComponent()->GetComponentLocation();
+	}
+	else
+	{
+		return Super::GetFocalPointOnActor(Actor);
+	}
+
+	return FVector();
 }
 
 void AToKillerAiController::Tick(float DeltaTime)
