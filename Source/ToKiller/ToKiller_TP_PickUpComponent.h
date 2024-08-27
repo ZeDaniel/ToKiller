@@ -9,7 +9,7 @@
 
 // Declaration of the delegate that will be called when someone picks this up
 // The character picking this up is the parameter sent with the notification
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPickUp, AToKillerCharacter*, PickUpCharacter);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnToKillerPickUp, AToKillerCharacter*, PickUpCharacter);
 
 UCLASS(Blueprintable, BlueprintType, ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class TOKILLER_API UToKiller_TP_PickUpComponent : public USphereComponent
@@ -20,7 +20,7 @@ public:
 	
 	/** Delegate to whom anyone can subscribe to receive this event */
 	UPROPERTY(BlueprintAssignable, Category = "Interaction")
-	FOnPickUp OnPickUp;
+	FOnToKillerPickUp OnPickUp;
 
 	UToKiller_TP_PickUpComponent();
 protected:
