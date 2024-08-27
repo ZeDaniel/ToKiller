@@ -145,23 +145,24 @@ void AToKillerGameMode::HandleStartup()
 	bGamePaused = false;
 
 	//Bind pause action
-	if (APlayerController* PlayerController = Cast<APlayerController>(PlayerCharacter->GetController()))
+	if (PlayerCharacter)
 	{
-		//temp disable input on player until we're ready to play
-		if (PlayerCharacter)
+		if (APlayerController* PlayerController = Cast<APlayerController>(PlayerCharacter->GetController()))
 		{
+			//temp disable input on player until we're ready to play
 			PlayerCharacter->DisableInput(PlayerController);
-		}
+			
 
-		if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerController->InputComponent))
-		{
-			// Continue game when prompted
-			EnhancedInputComponent->BindAction(ContinueAction, ETriggerEvent::Triggered, this, &AToKillerGameMode::Continue);
-			// Pause game
-			EnhancedInputComponent->BindAction(PauseAction, ETriggerEvent::Triggered, this, &AToKillerGameMode::PauseGame);
-		}
+			if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerController->InputComponent))
+			{
+				// Continue game when prompted
+				EnhancedInputComponent->BindAction(ContinueAction, ETriggerEvent::Triggered, this, &AToKillerGameMode::Continue);
+				// Pause game
+				EnhancedInputComponent->BindAction(PauseAction, ETriggerEvent::Triggered, this, &AToKillerGameMode::PauseGame);
+			}
 
-		DisableInput(PlayerController);
+			DisableInput(PlayerController);
+		}
 	}
 
 	FTimerHandle StartTimer;
