@@ -5,14 +5,14 @@
 #include "CoreMinimal.h"
 #include "Components/SphereComponent.h"
 #include "ToKillerCharacter.h"
-#include "TP_PickUpComponent.generated.h"
+#include "ToKiller_TP_PickUpComponent.generated.h"
 
 // Declaration of the delegate that will be called when someone picks this up
 // The character picking this up is the parameter sent with the notification
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPickUp, AToKillerCharacter*, PickUpCharacter);
 
 UCLASS(Blueprintable, BlueprintType, ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
-class TOKILLER_API UTP_PickUpComponent : public USphereComponent
+class TOKILLER_API UToKiller_TP_PickUpComponent : public USphereComponent
 {
 	GENERATED_BODY()
 
@@ -22,7 +22,7 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "Interaction")
 	FOnPickUp OnPickUp;
 
-	UTP_PickUpComponent();
+	UToKiller_TP_PickUpComponent();
 protected:
 
 	/** Called when the game starts */

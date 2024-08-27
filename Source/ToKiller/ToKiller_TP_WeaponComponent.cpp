@@ -1,7 +1,7 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 
-#include "TP_WeaponComponent.h"
+#include "ToKiller_TP_WeaponComponent.h"
 #include "ToKillerCharacter.h"
 #include "ToKillerProjectile.h"
 #include "GameFramework/PlayerController.h"
@@ -16,14 +16,14 @@
 #include "ToKillerAiCharacter.h"
 
 // Sets default values for this component's properties
-UTP_WeaponComponent::UTP_WeaponComponent()
+UToKiller_TP_WeaponComponent::UToKiller_TP_WeaponComponent()
 {
 	// Default offset from the character location for projectiles to spawn
 	MuzzleOffset = FVector(100.0f, 0.0f, 10.0f);
 }
 
 
-void UTP_WeaponComponent::Fire()
+void UToKiller_TP_WeaponComponent::Fire()
 {
 	if (Character && Character->GetController() && Character->InputEnabled())
 	{
@@ -36,12 +36,12 @@ void UTP_WeaponComponent::Fire()
 }
 
 
-bool UTP_WeaponComponent::AttachWeapon(AToKillerCharacter* TargetCharacter)
+bool UToKiller_TP_WeaponComponent::AttachWeapon(AToKillerCharacter* TargetCharacter)
 {
 	Character = TargetCharacter;
 
 	// Check that the character is valid, and has no weapon component yet
-	if (Character == nullptr || Character->GetInstanceComponents().FindItemByClass<UTP_WeaponComponent>())
+	if (Character == nullptr || Character->GetInstanceComponents().FindItemByClass<UToKiller_TP_WeaponComponent>())
 	{
 		return false;
 	}
@@ -65,14 +65,14 @@ bool UTP_WeaponComponent::AttachWeapon(AToKillerCharacter* TargetCharacter)
 		if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerController->InputComponent))
 		{
 			// Fire
-			EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Triggered, this, &UTP_WeaponComponent::Fire);
+			EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Triggered, this, &UToKiller_TP_WeaponComponent::Fire);
 		}
 	}
 
 	return true;
 }
 
-void UTP_WeaponComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
+void UToKiller_TP_WeaponComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	if (Character == nullptr)
 	{
@@ -88,7 +88,7 @@ void UTP_WeaponComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
 	}
 }
 
-void UTP_WeaponComponent::FireForPlayer()
+void UToKiller_TP_WeaponComponent::FireForPlayer()
 {
 	// Try and fire a projectile
 	if (ProjectileClass != nullptr)
@@ -132,7 +132,7 @@ void UTP_WeaponComponent::FireForPlayer()
 	}
 }
 
-void UTP_WeaponComponent::FireForAi()
+void UToKiller_TP_WeaponComponent::FireForAi()
 {
 	// Try and fire a projectile
 	if (ProjectileClass != nullptr)

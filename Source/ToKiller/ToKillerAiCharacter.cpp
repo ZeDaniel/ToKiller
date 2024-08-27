@@ -2,7 +2,7 @@
 
 
 #include "ToKillerAiCharacter.h"
-#include "TP_WeaponComponent.h"
+#include "ToKiller_TP_WeaponComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "ToKillerProjectile.h"
 #include "Kismet/GameplayStatics.h"
@@ -14,7 +14,7 @@ AToKillerAiCharacter::AToKillerAiCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	WeaponComp = CreateDefaultSubobject<UTP_WeaponComponent>(TEXT("Weapon Component"));
+	WeaponComp = CreateDefaultSubobject<UToKiller_TP_WeaponComponent>(TEXT("Weapon Component"));
 	WeaponComp->SetupAttachment(GetMesh(), TEXT("GripPoint"));
 
 }

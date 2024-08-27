@@ -29,7 +29,7 @@ public:
 	float GetChaseTimer() { return ChaseTimer; }
 	void SetChaseTimer(float NewChaseTimer) { ChaseTimer = NewChaseTimer; }
 
-	class UTP_WeaponComponent* GetWeaponComp() { return WeaponComp; }
+	class UToKiller_TP_WeaponComponent* GetWeaponComp() { return WeaponComp; }
 
 	void HandleDestruction();
 
@@ -39,7 +39,7 @@ public:
 
 protected:
 	UPROPERTY(EditAnywhere, Category="Weapon", BlueprintReadWrite)
-	class UTP_WeaponComponent* WeaponComp;
+	class UToKiller_TP_WeaponComponent* WeaponComp;
 
 	UPROPERTY(EditAnywhere, Category = "Weapon", BlueprintReadWrite)
 	TSubclassOf<AActor> WeaponDropClass;

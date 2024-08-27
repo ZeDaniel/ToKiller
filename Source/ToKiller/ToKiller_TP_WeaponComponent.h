@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "Components/SkeletalMeshComponent.h"
-#include "TP_WeaponComponent.generated.h"
+#include "ToKiller_TP_WeaponComponent.generated.h"
 
 class AToKillerCharacter;
 class AToKillerAiCharacter;
 
 UCLASS(Blueprintable, BlueprintType, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class TOKILLER_API UTP_WeaponComponent : public USkeletalMeshComponent
+class TOKILLER_API UToKiller_TP_WeaponComponent : public USkeletalMeshComponent
 {
 	GENERATED_BODY()
 
@@ -44,7 +44,7 @@ public:
 	class UInputAction* FireAction;
 
 	/** Sets default values for this component's properties */
-	UTP_WeaponComponent();
+	UToKiller_TP_WeaponComponent();
 
 	/** Manually set the Ai Character holding this weapon. Use when already attached to Ai*/
 	UFUNCTION(BlueprintCallable, Category="Weapon")

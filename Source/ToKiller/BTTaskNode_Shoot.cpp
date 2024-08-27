@@ -4,7 +4,7 @@
 #include "BTTaskNode_Shoot.h"
 #include "ToKillerAiController.h"
 #include "ToKillerAiCharacter.h"
-#include "TP_WeaponComponent.h"
+#include "ToKiller_TP_WeaponComponent.h"
 
 
 UBTTaskNode_Shoot::UBTTaskNode_Shoot()
